@@ -1,0 +1,1 @@
+enum ScreenStatus { IDLE, LOADING, SUCCESS, ERROR, WARNING, QUESTION }
