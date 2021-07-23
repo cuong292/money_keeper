@@ -50,7 +50,7 @@ abstract class BaseCubitView<B extends BaseCubit<S>, S extends BaseState>
             child: Stack(
               children: [
                 buildChild(),
-                loadingIndicator(),
+                Center(child: loadingIndicator()),
               ],
             ),
           ),
@@ -87,7 +87,7 @@ abstract class BaseCubitView<B extends BaseCubit<S>, S extends BaseState>
   }
 
 // if no builder return, just show the empty app bar
-  PreferredSizeWidget appbarBuilder(BuildContext? context) {
+  PreferredSizeWidget appbarBuilder(BuildContext context) {
     return AppBar();
   }
 

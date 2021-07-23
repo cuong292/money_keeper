@@ -1,7 +1,12 @@
 import 'package:base_flutter/base/data/db/app_dao.dart';
 import 'package:base_flutter/base/data/storage/sp_utils.dart';
-import 'package:base_flutter/example/login_cubit.dart';
-import 'package:base_flutter/example/login_screen.dart';
+import 'package:base_flutter/data/user.dart';
+import 'package:base_flutter/screen/account/account_cubit.dart';
+import 'package:base_flutter/screen/account/account_screen.dart';
+import 'package:base_flutter/screen/account/account_state.dart';
+import 'package:base_flutter/screen/home/home_cubit.dart';
+import 'package:base_flutter/screen/home/home_screen.dart';
+import 'package:base_flutter/screen/home/home_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +17,6 @@ import 'base/data/db/db_helper.dart';
 import 'base/navigation_service.dart';
 import 'base/service_locator.dart';
 import 'constant/constant_color.dart';
-import 'example/login_state.dart';
 import 'generated/l10n.dart';
 
 Future<void> main() async {
@@ -90,8 +94,8 @@ class MyApp extends StatelessWidget {
                     titleSpacing: 0,
                   )),
           home: BlocProvider(
-            create: (context) => LoginCubit(context, LoginState()),
-            child: LoginScreen(),
+            create: (context) => AccountCubit(context, AccountState(message: 'Tài khoản')),
+            child: AccountScreen(),
           ),
           // => change with start screen
           onGenerateRoute: onGenerateRoute,
@@ -111,6 +115,17 @@ class MyApp extends StatelessWidget {
   Route? onGenerateRoute(RouteSettings settings) {
     Route? page;
     switch (settings.name) {
+      case HomeScreen.SCREEN_NAME:
+        return CupertinoPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => HomeCubit(
+              context,
+              HomeState(settings.arguments as User),
+            ),
+            child: HomeScreen(),
+          ),
+        );
+        break;
     }
     return page;
   }

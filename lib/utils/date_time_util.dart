@@ -20,7 +20,7 @@ class DateTimeUtils {
   static DateFormat dateFormatHHmmddMMyyyyWithComma =
       DateFormat('HH:mm, dd/MM/yyyy', Intl.getCurrentLocale());
 
-  static DateFormat dateFormatMMM = DateFormat('MMMM', Intl.getCurrentLocale());
+  static DateFormat dateFormatMMM = DateFormat('MMMM yyyy', Intl.getCurrentLocale());
 
   static String toDDMMYY(int time) {
     if (time == 0) return '';
@@ -245,5 +245,16 @@ class DateTimeUtils {
 
   static String getDayOfWeekString(DateTime day) {
     return dateFormatE.format(day);
+  }
+
+  static int monthByDate(int date) {
+    DateTime dt = DateTime.fromMillisecondsSinceEpoch(date);
+    return DateTime(dt.year, dt.month, 1).millisecondsSinceEpoch;
+  }
+
+  static isThisMonth(int? month) {
+    DateTime dt = DateTime.fromMillisecondsSinceEpoch(month ?? 0);
+    DateTime now = DateTime.now();
+    return dt.month == now.month && dt.year == now.year;
   }
 }
